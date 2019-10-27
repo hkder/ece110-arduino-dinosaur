@@ -46,11 +46,11 @@ void setup() {
 void loop() {
   signalsendLEDState = digitalRead(buttonPin);
 
-  /*
+  
   if(signalsendLEDState == HIGH){
     digitalWrite(signalsendLED, HIGH);
     //if(Serial.available()){
-    char outgoing = 'A';
+    char outgoing = 'Q';
     Serial2.print(outgoing);
     delay(100);
     //}
@@ -68,32 +68,7 @@ void loop() {
     digitalWrite(signalreceiveLED, LOW);
   }
 
-  */
-  //----------------------------------------------
-
-  QTIVal_M = rcTime(QTIPinM);
-  QTIVal_L = rcTime(QTIPinL);
-  QTIVal_R = rcTime(QTIPinR);
   
-  if(qtiLogic(QTIVal_L, QTIVal_M, QTIVal_R)==3){
-    mainTurn();
-  }
-  else if(qtiLogic(QTIVal_L, QTIVal_M, QTIVal_R)==2){
-    goForward();
-  }
-
-  /*
-  Serial.println(rcTime(QTIPinM));
-  if(rcTime(QTIPinM) > threshold){
-    goForward();
-    delay(1000);
-  } else{
-    servoStop();
-    delay(1000);
-  }
-  */
-  
-  delay(1000);
 }
 
 void forwardTest1(){
