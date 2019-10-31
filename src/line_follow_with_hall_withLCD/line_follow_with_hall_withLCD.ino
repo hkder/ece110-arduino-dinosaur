@@ -118,7 +118,7 @@ void loop() {
       previouslyReadIntersection = true;
       
       if(mag >= 0){
-        //setColor(0, 255, 127);
+        setColor(0, 255, 127);
         location = stops;
         mySerial.write(148);
         mySerial.print("Hash ");
