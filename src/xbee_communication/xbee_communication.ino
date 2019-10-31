@@ -50,7 +50,7 @@ void loop() {
   if(signalsendLEDState == HIGH){
     digitalWrite(signalsendLED, HIGH);
     //if(Serial.available()){
-    char outgoing = 'Q';
+    char outgoing = 'T';
     Serial2.print(outgoing);
     delay(100);
     //}

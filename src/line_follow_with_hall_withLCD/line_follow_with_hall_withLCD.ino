@@ -1,10 +1,13 @@
 #include<Servo.h>
+#include<SoftwareSerial.h>
 
 Servo servoLeft;
 Servo servoRight;
 
 #define Rx 17
 #define Tx 16
+const int TxPin = 18;
+SoftwareSerial mySerial = SoftwareSerial(255, TxPin);
 
 int red = 45;
 int green = 46;
@@ -63,6 +66,37 @@ void setup() {
   pinMode(green, OUTPUT);
   pinMode(blue, OUTPUT);
   setColor(0,0,0);
+
+  //code for LCD
+  pinMode(TxPin, OUTPUT);
+  digitalWrite(TxPin, HIGH);
+
+  mySerial.begin(9600);
+  delay(100);
+  mySerial.write(12); // clear
+  mySerial.write(17); // Turn backlight on
+  delay(5);
+  mySerial.print("Hello, World...");
+  mySerial.write(13);
+  mySerial.print("from Parallax!");
+  mySerial.write(211);
+  mySerial.write(227);
+  mySerial.write(212);
+  mySerial.write(227);
+  mySerial.write(212);
+  mySerial.write(227);
+  mySerial.write(211);
+  mySerial.write(223);
+  mySerial.write(212);
+  mySerial.write(223);
+  mySerial.write(213);
+
+  
+  mySerial.write(212);
+  mySerial.write(220);
+  delay(3000);
+  mySerial.write(18);
+  
 }
 
 void loop() {
