@@ -76,26 +76,14 @@ void setup() {
   mySerial.write(12); // clear
   mySerial.write(17); // Turn backlight on
   delay(5);
-  mySerial.print("Hello, World...");
-  mySerial.write(13);
-  mySerial.print("from Parallax!");
-  mySerial.write(211);
-  mySerial.write(227);
-  mySerial.write(212);
-  mySerial.write(227);
-  mySerial.write(212);
-  mySerial.write(227);
-  mySerial.write(211);
-  mySerial.write(223);
-  mySerial.write(212);
-  mySerial.write(223);
-  mySerial.write(213);
-
-  
-  mySerial.write(212);
-  mySerial.write(220);
+  mySerial.print("YOSHI BEGINS");
+  //mySerial.write(13); // change line
   delay(3000);
-  mySerial.write(18);
+  mySerial.write(128);
+  mySerial.print("Detecting...");
+
+  //mySerial.print()
+  //mySerial.write(18); //turn backlight off
   
 }
 
@@ -124,20 +112,39 @@ void loop() {
   
   //------------------------start main function after initialization-------------------
   if(result==7){
+    if (stops <= 5) servoStop(2500);
     if(previouslyReadIntersection == false){
       stops++;
       previouslyReadIntersection = true;
+      
       if(mag >= 0){
-        setColor(0, 255, 127);
+        //setColor(0, 255, 127);
         location = stops;
+        mySerial.write(148);
+        mySerial.print("Hash ");
+        mySerial.print(String(stops-1));
+        mySerial.print(" : FOUND");
+        delay(100);
+        char outgoing = 'A';
+        Serial2.print(outgoing);
+        delay(100);
+      } else{
+        mySerial.write(148);
+        mySerial.print("Hash ");
+        mySerial.print(String(stops-1));
+        mySerial.print(" : NO   ");
+        delay(100);
+        char outgoing = 'B';
+        Serial2.print(outgoing);
+        delay(100);
       }
+     
     }
+    
     if(stops <= 5){
-    servoStop(2500);
     goForward(300);
     setColor(0,0,0);
     }
-    //do something with magnetic sensor;
   }
   
   if(result == 2){
@@ -169,9 +176,9 @@ void loop() {
       currentMillis = 0;
     }
     */
-    servoStop(100); //1000
+    //servoStop(100); //1000
     //turnLeft(200); //200
-    turnLeftForStop(200);
+    turnLeftForStop(100);
     previouslyReadIntersection = false;
     
     /*
@@ -285,6 +292,27 @@ void setColor(int r, int g, int b){
   analogWrite(red, 255-r);
   analogWrite(green, 255-g);
   analogWrite(blue, 255-b);
+}
+
+void playMario(){
+  mySerial.write(216);
+  mySerial.write(210); //1/16
+  mySerial.write(227); //e
+  mySerial.write(211); //1/8
+  mySerial.write(227); //e
+  mySerial.write(211); 
+  mySerial.write(227); //e
+  mySerial.write(210);
+  mySerial.write(223); //c
+  mySerial.write(211);
+  mySerial.write(227); //e
+  mySerial.write(212); // 1/4
+  mySerial.write(230); //play g
+  mySerial.write(215); //change scale
+  mySerial.write(211); //1/8
+  mySerial.write(230);
+  
+  delay(1000);
 }
 
 long rcTime(int pin) {
