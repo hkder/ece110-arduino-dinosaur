@@ -1,0 +1,22 @@
+void writeInfoToArray(int n){
+  //int conversion = (int) n;
+  int digit_ten = n/10;
+  int digit_one = n%10;
+  info[digit_ten-1] = digit_one;
+}
+
+int parser(char n){
+  int charToInt = 0;
+  int easyInt = n-97;
+  charToInt += ((easyInt/6)+1)*10;
+  receivedInfo[charToInt/10-1] = true;
+  charToInt += easyInt%6;
+  return charToInt;
+}
+
+boolean receivedAllData(){
+  for(int i = 0; i < 5; i++){
+    if(receievedInfo[i] == false) return false;
+  }
+  return true;
+}

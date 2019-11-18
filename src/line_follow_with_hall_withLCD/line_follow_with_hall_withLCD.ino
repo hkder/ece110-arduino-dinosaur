@@ -107,11 +107,21 @@ void loop() {
   
   mag = mag - 2.50;
   mag = mag*5000;
+  boolean finished = false;
 
-  if(stops > 5) servoStop(1000);
+  if(stops > 5){
+    if(finished == false){
+      servoStop(1000);
+      Serial2.print(location);
+      finished = true;
+      delay(3000);
+    } else{
+      servoStop(3000);
+    }
+  }
   
   //------------------------start main function after initialization-------------------
-  if(result==7){
+  else if(result==7){
     if (stops <= 5) servoStop(2500);
     if(previouslyReadIntersection == false){
       stops++;
@@ -119,7 +129,7 @@ void loop() {
       
       if(mag >= 0){
         setColor(0, 255, 127);
-        location = stops;
+        location = stops-1;
         mySerial.write(148);
         mySerial.print("Hash ");
         mySerial.print(String(stops-1));
@@ -166,36 +176,11 @@ void loop() {
   }
   
   if(result == 0){
-    /*
-    if(currentMillis == 0){
-      startMillis = millis();
-    }
-    currentMillis == millis();
-    if(currentMillis - startMillis >= period){
-      turnRight(700);
-      currentMillis = 0;
-    }
-    */
+    
     //servoStop(100); //1000
     //turnLeft(200); //200
     turnLeftForStop(100);
     previouslyReadIntersection = false;
-    
-    /*
-    if(myPrevious == "right"){
-      turnLeft(500);
-      myPrevious = "";
-    }
-    if(myPrevious == "left"){
-      turnRight(500);
-      myPrevious = "";
-    }
-    if(myPrevious == "forward"){
-      turnRight(3000);
-      myPrevious = "";
-    }
-    goForward(100);
-    */
   }
 }
 
