@@ -238,6 +238,23 @@ void loop() {
 }
 
 void serialSender_min(int c) {
+  // 0 if dino is captured
+  // -1 if hashmark 5 -> do dance
+  // 1 if dino escapes
+  if(c==-1){
+    Serial2.print(5);
+    delay(100);
+    Serial2.print(minBot_Num);
+  } else if(c==0){
+    Serial2.print(6);
+    delay(100);
+    Serial2.print(minBot_Num);
+  } else if(c==1){
+    Serial2.print(7);
+    delay(100);
+    Serial2.print(minBot_Num);
+  }
+  /*
   if (minLocation == 1) {
     Serial2.print('z');
   } else if (minLocation == 2) {
@@ -251,6 +268,7 @@ void serialSender_min(int c) {
   } else if (c == 0) {
     Serial2.print('y');
   }
+  */
 }
 
 int getMin() {
@@ -258,7 +276,7 @@ int getMin() {
   for (int i = 0; i < 4; i++) {
     if (info[i] < minVal) {
       minVal = info[i];
-      //minBot_Num = i;    //stores first occurrence of min
+      minBot_Num = i;    //stores first occurrence of min
     }
   }
   //Serial.print(minVal);
