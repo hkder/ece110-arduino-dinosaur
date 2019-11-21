@@ -186,14 +186,14 @@ void loop() {
     char receivedChar = Serial2.read();
     Serial.print(receivedChar);
     writeInfoToArray(parser(receivedChar));
-    /*
+    
     Serial.print("[");
     for (int i = 0; i < 4; i++) {
       Serial.print(info[i]);
       Serial.print(",");
     }
     Serial.print("]");
-    */
+    
     Serial.print(":");
     Serial.print(getMin());
     Serial.print(" ");
@@ -203,7 +203,7 @@ void loop() {
   if (stops > 5) {
     if (finished_linefollow == false) {
       //servoStop(1000);
-      Serial2.print(hashMark_Location);
+      //Serial2.print(hashMark_Location);
       finished_linefollow = true;
       delay(100);
     }
@@ -213,10 +213,11 @@ void loop() {
           // 0 if dino is captured
           // -1 if hashmark 5 -> do dance
           // 1 if dino escapes
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 20; i++) {
           delay(10);
           serialSender_min(checker);
           serialSent = true;
+          delay(100);
         }
         mySerial.write(148);
         mySerial.print("Result: ");
@@ -242,17 +243,17 @@ void serialSender_min(int c) {
   // -1 if hashmark 5 -> do dance
   // 1 if dino escapes
   if(c==-1){
-    Serial2.print(5);
+    Serial2.print('5');
     delay(100);
-    Serial2.print(minBot_Num);
+    Serial2.print(String(minBot_Num));
   } else if(c==0){
-    Serial2.print(6);
+    Serial2.print('6');
     delay(100);
-    Serial2.print(minBot_Num);
+    Serial2.print(String(minBot_Num));
   } else if(c==1){
-    Serial2.print(7);
+    Serial2.print('7');
     delay(100);
-    Serial2.print(minBot_Num);
+    Serial2.print(String(minBot_Num));
   }
   /*
   if (minLocation == 1) {
@@ -276,7 +277,7 @@ int getMin() {
   for (int i = 0; i < 4; i++) {
     if (info[i] < minVal) {
       minVal = info[i];
-      minBot_Num = i;    //stores first occurrence of min
+      minBot_Num = i+1;    //stores first occurrence of min
     }
   }
   //Serial.print(minVal);
