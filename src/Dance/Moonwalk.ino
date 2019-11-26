@@ -451,7 +451,9 @@ void loop() {
         delay(100);
 
         if (int checker = -1) {
-          Moonwalk(1000);
+          playMario();
+          Moonwalk(6000);
+          
         }
 
 
@@ -831,11 +833,15 @@ void playMario() {
 }
 
 void Moonwalk (int t) {
+  servoLeft.writeMicroseconds(1350);
+  servoRight.writeMicroseconds(1350);
+  delay(580);
+  goForward(2800);
   goBack(200);
   goBack(200);
   goBack(200);
-  servoLeft.writeMicroseconds(1700);   // Left wheel counterclockwise
-  servoRight.writeMicroseconds(1500);  // Right wheel stop
+  servoLeft.writeMicroseconds(1500);   // Left wheel stop
+  servoRight.writeMicroseconds(1700);  // Right wheel cc
   delay(t);
   
   
