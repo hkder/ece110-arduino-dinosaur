@@ -33,6 +33,10 @@ float mag = -1000;   //do nothing
 int minBot_Num = 1000;
 int minLocation = 1000;
 
+unsigned long startMillis;
+unsigned long currentMillis;
+const unsigned long period = 7000;
+
 void setup() {
   //initialize serial
   Serial.begin(9600);
@@ -68,7 +72,6 @@ void setup() {
 
   //mySerial.print()
   //mySerial.write(18); //turn backlight off
-
 }
 
 void initialize_values() {
@@ -233,6 +236,10 @@ void loop() {
         if(checker == 1){
           playMario();
         }
+        
+        if (checker == -1) {
+          doAll();
+        }
 
         servoStop(1000);
       } else {
@@ -245,6 +252,20 @@ void loop() {
     line_follow();
   }
 
+}
+
+void doAll(){
+  moveToCenter();
+  startMillis = millis();
+  while(1){
+    currentMillis = millis();
+    if(currentMillis-startMillis >= period){
+      break;
+    }
+    playMario();
+    Moonwalk(100);
+    lightShow();
+   }
 }
 
 void serialSender_min(int c) {
@@ -332,6 +353,12 @@ int qtiLogic(int qtileft, int qtimiddle, int qtiright) {
   }
 }
 
+void dance(){
+  //move forward
+  turnLeft(100);
+  goForward(200);
+}
+
 void pulse(int left, int right, int t) {
   servoLeft.writeMicroseconds(left);
   servoRight.writeMicroseconds(right);
@@ -405,6 +432,31 @@ void playMario() {
   mySerial.write(230);
 
   delay(1000);
+}
+
+void lightShow(){
+  int color[] = {0,32,64};
+  for(int i = 0; i < 10; i++){
+    setColor(color[random(0,3)],color[random(0,3)],color[random(0,3)]);
+    delay(50);
+  }
+}
+
+void Moonwalk (int t) {
+  goBack(200);
+  goBack(200);
+  goBack(200);
+  servoLeft.writeMicroseconds(1500);   // Left wheel stop
+  servoRight.writeMicroseconds(1700);  // Right wheel cc
+  delay(t);
+}
+
+void moveToCenter(){
+  goForward(500);
+  servoLeft.writeMicroseconds(1350);
+  servoRight.writeMicroseconds(1350);
+  delay(600);
+  goForward(2000);
 }
 
 long rcTime(int pin) {

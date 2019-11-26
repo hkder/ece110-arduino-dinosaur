@@ -1,0 +1,22 @@
+void playMario() {
+  mySerial.write(216);
+  mySerial.write(210); //1/16
+  mySerial.write(227); //e
+  mySerial.write(211); //1/8
+  mySerial.write(227); //e
+  mySerial.write(211);
+  mySerial.write(227); //e
+  mySerial.write(210);
+  mySerial.write(223); //c
+  mySerial.write(211);
+  mySerial.write(227); //e
+  mySerial.write(212); // 1/4
+  mySerial.write(230); //play g
+  mySerial.write(215); //change scale
+  mySerial.write(211); //1/8
+  mySerial.write(230);
+
+  delay(1000);
+}
+
+*see the documentatino for piezo (Parallax-Serial-LCDs-Product-Guide-v3.1)
