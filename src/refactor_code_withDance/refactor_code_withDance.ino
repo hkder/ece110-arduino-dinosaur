@@ -273,17 +273,17 @@ void serialSender_min(int c) {
   // -1 if hashmark 5 -> do dance
   // 1 if dino escapes
   if(c==-1){
+    Serial2.print(String(minBot_Num));
+    delay(100);
     Serial2.print('5');
-    delay(100);
-    Serial2.print(String(minBot_Num));
   } else if(c==0){
+    Serial2.print(String(minBot_Num));
+    delay(100);
     Serial2.print('6');
-    delay(100);
-    Serial2.print(String(minBot_Num));
   } else if(c==1){
-    Serial2.print('7');
-    delay(100);
     Serial2.print(String(minBot_Num));
+    delay(100);
+    Serial2.print('7');
   }
 }
 
